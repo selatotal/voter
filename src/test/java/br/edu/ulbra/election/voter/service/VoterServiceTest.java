@@ -10,12 +10,10 @@ import br.edu.ulbra.election.voter.repository.VoterRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,7 +121,7 @@ public class VoterServiceTest {
     @Test
     public void shouldCreate(){
         VoterInput voterInput = VoterBuilder.getVoterInput();
-        given(voterRepository.save(anyObject()))
+        given(voterRepository.save(any()))
                 .willReturn(VoterBuilder.getVoter());
         VoterOutput voterOutput = voterService.create(voterInput);
         Assert.assertEquals(voterInput.getName(), voterOutput.getName());
@@ -191,7 +188,7 @@ public class VoterServiceTest {
         voterInput.setPassword(null);
         given(voterRepository.findById(anyLong()))
                 .willReturn(Optional.of(VoterBuilder.getVoter()));
-        given(voterRepository.save(anyObject()))
+        given(voterRepository.save(any()))
                 .willReturn(VoterBuilder.getVoter());
 
         VoterOutput voterOutput = voterService.update(1L, voterInput);
@@ -204,7 +201,7 @@ public class VoterServiceTest {
         VoterInput voterInput = VoterBuilder.getVoterInput();
         given(voterRepository.findById(anyLong()))
                 .willReturn(Optional.of(VoterBuilder.getVoter()));
-        given(voterRepository.save(anyObject()))
+        given(voterRepository.save(any()))
                 .willReturn(VoterBuilder.getVoter());
         VoterOutput voterOutput = voterService.update(1L, voterInput);
         Assert.assertEquals(voterInput.getName(), voterOutput.getName());
@@ -227,7 +224,7 @@ public class VoterServiceTest {
     public void shouldDelete(){
         given(voterRepository.findById(anyLong()))
                 .willReturn(Optional.of(VoterBuilder.getVoter()));
-        doNothing().when(voterRepository).delete(anyObject());
+        doNothing().when(voterRepository).delete(any());
         GenericOutput genericOutput = voterService.delete(1L);
         Assert.assertEquals("Voter deleted", genericOutput.getMessage());
     }

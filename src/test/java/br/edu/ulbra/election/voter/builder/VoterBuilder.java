@@ -4,7 +4,7 @@ import br.edu.ulbra.election.voter.input.v1.VoterInput;
 import br.edu.ulbra.election.voter.model.Voter;
 import br.edu.ulbra.election.voter.output.v1.VoterOutput;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class VoterBuilder {
@@ -18,7 +18,7 @@ public class VoterBuilder {
     }
 
     public static List<VoterOutput> getVoterOutputList(){
-        return Arrays.asList(getVoterOutput());
+        return Collections.singletonList(getVoterOutput());
     }
 
     public static VoterInput getVoterInput() {
@@ -41,6 +41,6 @@ public class VoterBuilder {
     }
 
     public static List<Voter> getVoterList() {
-        return Arrays.asList(getVoter());
+        return Collections.singletonList(getVoter());
     }
 }

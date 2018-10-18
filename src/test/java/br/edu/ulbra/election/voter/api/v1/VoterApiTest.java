@@ -2,7 +2,6 @@ package br.edu.ulbra.election.voter.api.v1;
 
 import br.edu.ulbra.election.voter.TestConfig;
 import br.edu.ulbra.election.voter.builder.VoterBuilder;
-import br.edu.ulbra.election.voter.exception.GenericOutputException;
 import br.edu.ulbra.election.voter.output.v1.GenericOutput;
 import br.edu.ulbra.election.voter.service.VoterService;
 import com.google.gson.Gson;
@@ -18,10 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyObject;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -67,7 +65,7 @@ public class VoterApiTest {
 
     @Test
     public void create() throws Exception{
-        given(voterService.create(anyObject()))
+        given(voterService.create(any()))
                 .willReturn(VoterBuilder.getVoterOutput());
 
         mockMvc.perform(put(URL_BASE)
@@ -82,7 +80,7 @@ public class VoterApiTest {
 
     @Test
     public void update() throws Exception{
-        given(voterService.update(anyLong(), anyObject()))
+        given(voterService.update(anyLong(), any()))
                 .willReturn(VoterBuilder.getVoterOutput());
 
         mockMvc.perform(post(URL_BASE + "1")

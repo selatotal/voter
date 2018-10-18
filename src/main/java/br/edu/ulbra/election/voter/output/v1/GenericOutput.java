@@ -9,9 +9,6 @@ public class GenericOutput {
     @ApiModelProperty(example = "Command OK", notes = "Output message")
     private String message;
 
-    public GenericOutput() {
-    }
-
     public GenericOutput(String message) {
         this.message = message;
     }

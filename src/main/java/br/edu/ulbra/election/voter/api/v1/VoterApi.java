@@ -29,17 +29,17 @@ public class VoterApi {
 
     @GetMapping("/{voterId}")
     @ApiOperation(value = "Get voter by Id")
-    public VoterOutput getById(@PathVariable Long voterId){
+    public VoterOutput getById(@PathVariable(name="voterId") Long voterId){
         return voterService.getById(voterId);
     }
 
-    @PutMapping("/")
+    @PostMapping("/")
     @ApiOperation(value = "Create new voter")
     public VoterOutput create(@RequestBody VoterInput voterInput){
         return voterService.create(voterInput);
     }
 
-    @PostMapping("/{voterId}")
+    @PutMapping("/{voterId}")
     @ApiOperation(value = "Update voter")
     public VoterOutput update(@PathVariable Long voterId, @RequestBody VoterInput voterInput){
         return voterService.update(voterId, voterInput);

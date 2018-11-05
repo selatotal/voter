@@ -42,6 +42,7 @@ public class VoterService {
 
     public VoterOutput create(VoterInput voterInput) {
         validateInput(voterInput, false);
+        checkEmailDuplicate(voterInput.getEmail(), null);
         Voter voter = modelMapper.map(voterInput, Voter.class);
         voter.setPassword(passwordEncoder.encode(voter.getPassword()));
         voter = voterRepository.save(voter);
@@ -66,6 +67,7 @@ public class VoterService {
             throw new GenericOutputException(MESSAGE_INVALID_ID);
         }
         validateInput(voterInput, true);
+        checkEmailDuplicate(voterInput.getEmail(), voterId);
 
         Voter voter = voterRepository.findById(voterId).orElse(null);
         if (voter == null){
@@ -94,6 +96,13 @@ public class VoterService {
         voterRepository.delete(voter);
 
         return new GenericOutput("Voter deleted");
+    }
+
+    private void checkEmailDuplicate(String email, Long currentVoter){
+        Voter voter = voterRepository.findFirstByEmail(email);
+        if (voter != null && !voter.getId().equals(currentVoter)){
+            throw new GenericOutputException("Duplicate email");
+        }
     }
 
     private void validateInput(VoterInput voterInput, boolean isUpdate){

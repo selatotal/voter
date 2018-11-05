@@ -109,7 +109,7 @@ public class VoterService {
         if (StringUtils.isBlank(voterInput.getEmail())){
             throw new GenericOutputException("Invalid email");
         }
-        if (StringUtils.isBlank(voterInput.getName())){
+        if (StringUtils.isBlank(voterInput.getName()) || voterInput.getName().trim().length() < 5 || !voterInput.getName().trim().contains(" ")) {
             throw new GenericOutputException("Invalid name");
         }
         if (!StringUtils.isBlank(voterInput.getPassword())){

@@ -21,7 +21,7 @@ public class ElectionClientService {
         return electionClient.findVotesByVoter(voterId);
     }
 
-    @FeignClient
+    @FeignClient(name="election-service", url="${url.election-service}")
     public interface ElectionClient {
 
         @GetMapping("/v1/vote/findVotesByVoter/{voterId}")

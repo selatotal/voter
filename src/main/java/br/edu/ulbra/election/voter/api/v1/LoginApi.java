@@ -7,7 +7,8 @@ import br.edu.ulbra.election.voter.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/v1/login")
+@RestController
+@RequestMapping("/v1/login")
 public class LoginApi {
 
     private final LoginService loginService;

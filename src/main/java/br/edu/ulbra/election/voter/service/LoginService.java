@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -96,6 +97,6 @@ public class LoginService {
 
     private String generateToken(Voter voter, Date expireDate){
         String openToken = String.format("%s%s%s", voter.getEmail(), voter.getName(), expireDate.toString());
-        return passwordEncoder.encode(openToken);
+        return new String(Base64.getEncoder().encode(openToken.getBytes()));
     }
 }
